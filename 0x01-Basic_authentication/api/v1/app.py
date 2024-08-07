@@ -48,7 +48,7 @@ def filter_request():
         abort(403)
 
 
-@app.route('/api/v1/status', methods=['GET'])
+@app.route('/api/v1/status/', methods=['GET'])
 def status():
     """Returns a JSON object with a status code of 0."""
     print("Status route was called")
