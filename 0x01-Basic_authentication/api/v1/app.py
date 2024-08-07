@@ -48,6 +48,12 @@ def filter_request():
         abort(403)
 
 
+@app.route('/api/v1/status', methods=['GET'])
+def status():
+    """Returns a JSON object with a status code of 0."""
+    return jsonify({"status": "OK"})
+
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
