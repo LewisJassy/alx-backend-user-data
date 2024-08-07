@@ -1,3 +1,4 @@
+"""Python module"""
 #!/usr/bin/env python3
 
 from typing import List, TypeVar
@@ -5,6 +6,8 @@ from flask import Flask, request
 
 
 class Auth:
+    ''' A Class to manage the API authentication.
+    '''
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Public method that returns False.
