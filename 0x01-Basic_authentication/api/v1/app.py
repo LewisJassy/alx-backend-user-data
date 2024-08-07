@@ -26,6 +26,10 @@ if getenv('AUTH_TYPE') == "auth":
 
 @app.before_request
 def filter_request():
+    """"
+    Filters incoming requests
+    to ensure authentication and authorization.
+    """
     if auth is None:
         return
 
