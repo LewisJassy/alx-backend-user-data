@@ -27,7 +27,9 @@ def before_request():
     if auth is None:
         return
 
-    if request.path in ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']:
+    if request.path in [
+        '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
+    ]:
         return
 
     if auth.authorization_header(request) is None:
@@ -43,11 +45,13 @@ def not_found(error) -> str:
     """
     return jsonify({"error": "Not found"}), 404
 
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """ Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
+
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
