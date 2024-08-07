@@ -6,7 +6,6 @@ from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
-from api.v1.auth.auth import Auth
 import os
 
 
@@ -16,20 +15,26 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 
-auth_type = os.getenv('AUTH_TYPE')
-if auth_type:
-    if auth_type == 'Auth':
-        auth = Auth()
+if getenv('AUTH_TYPE') == "auth":
+    from api.v1.auth.auth import Auth
+    auth = Auth()
+
+# elif getenv('AUTH_TYPE') == "basic_auth":
+#     from api.v1.auth.basic_auth import BasicAuth
+#     auth = BasicAuth()
 
 
 @app.before_request
-def before_request():
+def filter_request():
     if auth is None:
         return
 
-    if request.path in [
-        '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
-    ]:
+    excluded_paths = [
+        '/api/v1/status/',
+        '/api/v1/unauthorized/',
+        '/api/v1/forbidden/'
+    ]
+    if not auth.require_auth(request.path, excluded_paths):
         return
 
     if auth.authorization_header(request) is None:
