@@ -1,5 +1,5 @@
-"""python module"""
 #!/usr/bin/env python3
+"""python module"""
 
 from typing import List, TypeVar
 from flask import Flask, request
