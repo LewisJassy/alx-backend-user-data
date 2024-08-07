@@ -18,7 +18,7 @@ class Auth:
     def authorization_header(self, request=None) -> str:
         """
         Public method that returns None.
-        request will be the Flask request object.
+        request will be the Flask request object
         """
         return None
 
