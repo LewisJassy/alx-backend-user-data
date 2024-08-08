@@ -26,14 +26,10 @@ elif getenv('AUTH_TYPE') == "basic_auth":
 
 @app.before_request
 def before_request():
-    """
-    Method that runs before each request to filter out requests
-    that need authentication and to set the current user.
-    """
     if auth is None:
         return
     excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    if not auth.require_auth(request.path, excluded_paths):
+    if any(request.path.startswith(p) for p in excluded_paths):
         return
     if auth.authorization_header(request) is None:
         abort(401)
