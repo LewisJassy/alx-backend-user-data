@@ -25,27 +25,21 @@ elif getenv('AUTH_TYPE') == "basic_auth":
 
 
 @app.before_request
-def filter_request():
-    """"
-    Filters incoming requests
-    to ensure authentication and authorization.
+def before_request():
+    """
+    Method that runs before each request to filter out requests
+    that need authentication and to set the current user.
     """
     if auth is None:
         return
-
-    excluded_paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/'
-    ]
+    excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if not auth.require_auth(request.path, excluded_paths):
         return
-
     if auth.authorization_header(request) is None:
         abort(401)
-
     if auth.current_user(request) is None:
         abort(403)
+    request.current_user = auth.current_user(request)
 
 
 @app.route('/api/v1/status/', methods=['GET'])
