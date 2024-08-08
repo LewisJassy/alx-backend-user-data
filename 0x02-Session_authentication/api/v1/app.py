@@ -36,6 +36,10 @@ def authenticate_user():
             "/api/v1/auth_session/login/",
         ]
         if auth.require_auth(request.path, excluded_paths):
+            # Check the type of authentication being used
+            if auth.authorization_header(request) is None:
+                if hasattr(auth, 'session_cookie') and auth.session_cookie(request) is None:
+                    abort(401)
             user = auth.current_user(request)
             if auth.authorization_header(request) is None and \
                     auth.session_cookie(request) is None:
