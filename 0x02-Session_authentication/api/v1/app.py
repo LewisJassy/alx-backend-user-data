@@ -36,10 +36,6 @@ def authenticate_user():
         ]
         if auth.require_auth(request.path, excluded_paths):
             # Check the type of authentication being used
-            if auth.authorization_header(request) is None:
-                if hasattr(auth, 'session_cookie') and auth.session_cookie(request) is None:
-                    abort(401)
-            user = auth.current_user(request)
             if user is None:
                 abort(403)
             request.current_user = user
