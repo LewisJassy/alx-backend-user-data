@@ -44,6 +44,7 @@ def authenticate_user():
 
 
 
+@app.route('/api/v1/status', methods=['GET'])
 @app.route('/api/v1/status/', methods=['GET'])
 def status():
     """Returns a JSON object with a status code of 0."""
