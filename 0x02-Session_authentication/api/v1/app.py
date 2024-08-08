@@ -25,7 +25,6 @@ elif getenv('AUTH_TYPE') == "basic_auth":
 
 
 @app.before_request
-@app.before_request
 def before_request():
     if auth is None:
         return
