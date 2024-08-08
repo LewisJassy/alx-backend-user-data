@@ -2,7 +2,7 @@
 """
 View module for the API
 """
-from flask import Blueprint, abort
+from flask import Blueprint, abort, jsonify
 
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
 
@@ -15,3 +15,9 @@ def unauthorized():
 def forbidden():
     """ Endpoint to test 403 error handler """
     abort(403)
+
+
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
+def status():
+    """Status of API"""
+    return jsonify({"status": "OK"})
