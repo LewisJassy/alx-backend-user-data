@@ -43,7 +43,6 @@ def authenticate_user():
             request.current_user = user
 
 
-
 @app.route('/api/v1/status', methods=['GET'])
 @app.route('/api/v1/status/', methods=['GET'])
 def status():
