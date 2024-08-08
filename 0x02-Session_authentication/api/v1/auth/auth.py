@@ -8,10 +8,9 @@ from typing import List, TypeVar
 class Auth:
     """authentication class"""
     def require_auth(self, path: str, excluded_paths: list) -> bool:
-        """Returns True if authentication is required for the path"""
-        if any(path.startswith(p) for p in excluded_paths):
-            return False
-        return True
+        """Returns True if authentication is required for the path."""
+        path = path.rstrip('/')
+        return not any(path.startswith(p.rstrip('/')) for p in excluded_paths)
 
 
     def authorization_header(self, request=None) -> str:
