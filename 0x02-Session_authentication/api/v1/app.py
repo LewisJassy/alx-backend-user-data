@@ -47,9 +47,15 @@ def authenticate_user():
             request.current_user = user
 
 
-@app.route('/api/v1/status', methods=['GET'])
 @app.route('/api/v1/status/', methods=['GET'])
 def status():
+    """Returns a JSON object with a status code of 0."""
+    print("Status route was called")
+    return jsonify({"status": "OK"})
+
+
+@app.route('/api/v1/status', methods=['GET'])
+def status1():
     """Returns a JSON object with a status code of 0."""
     print("Status route was called")
     return jsonify({"status": "OK"})
