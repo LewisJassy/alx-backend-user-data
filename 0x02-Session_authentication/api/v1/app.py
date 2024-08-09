@@ -56,7 +56,7 @@ def status():
 
 
 @app.route('/api/v1/status', methods=['GET'])
-def status():
+def status1():
     """Returns a JSON object with a status code of 0."""
     print("Status route was called")
     return jsonify({"status": "OK"})
