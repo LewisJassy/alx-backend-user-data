@@ -107,4 +107,3 @@ class SessionExpAuth(SessionAuth):
         # Return the user_id from the session dictionary if the session
         # has not expired
         return session_dict.get("user_id", None)
-    
