@@ -33,7 +33,6 @@ def authenticate_user():
     """Authenticates a user before processing a request."""
     if auth:
         excluded_paths = [
-            '/api/v1/status',
             "/api/v1/status/",
             "/api/v1/unauthorized/",
             "/api/v1/forbidden/",
@@ -60,6 +59,7 @@ def status1():
     """Returns a JSON object with a status code of 0."""
     print("Status route was called")
     return jsonify({"status": "OK"})
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
