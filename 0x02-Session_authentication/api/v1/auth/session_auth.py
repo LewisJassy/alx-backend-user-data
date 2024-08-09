@@ -3,6 +3,7 @@
 """
 from .auth import Auth
 from uuid import uuid4
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -24,6 +25,13 @@ class SessionAuth(Auth):
         """
         if type(session_id) is str:
             return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None) -> User:
+        """Retrieves the user associated with the request.
+        """
+        user_id = self.user_id_for_session_id(self.session_cookie(request))
+        return User.get(user_id)
+
     def destroy_session(self, request=None):
         """Destroys an authenticated session.
         """
