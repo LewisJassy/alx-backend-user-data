@@ -1,23 +1,17 @@
 #!/usr/bin/env python3
-from sqlalchemy.ext.declarative import declarative_base
+"""The `user` model's module.
+"""
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
 
 Base = declarative_base()
 
+
 class User(Base):
+    """Represents a record from the `user` table.
     """
-    Represents a user in the system.
-
-    Attributes:
-        id (int): Unique identifier
-        email (int): Email address (should be str)
-        hashed_password (str): Hashed password
-        session_id (str, optional): Session ID
-        reset_token (str, optional): Reset token
-
-    Returns a string representation of the user object.
-    """
-    __tablename__ = 'users'
+    __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
     hashed_password = Column(String(250), nullable=False)
